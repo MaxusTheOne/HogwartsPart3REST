@@ -31,11 +31,18 @@ public class Teacher {
         this.employmentStart = employmentStart;
         this.employmentEnd = employmentEnd;
     }
+    // example of a teacher JSON object
+    // {"firstName":"Minerva","middleName":"McGonagall","lastName":"McGonagall","dateOfBirth":"1935-10-04","headOfHouse":true,"employmentType":"FULL_TIME","employmentStart":"1956-01-01","employmentEnd":"2020-06-30"}
 
     public Teacher() {
     }
 
+    public Teacher(String firstName){
+        this.firstName = firstName;
+    }
+
     public Teacher(Teacher otherTeacher) {
+        this.id = otherTeacher.getId();
         this.firstName = otherTeacher.getFirstName();
         this.middleName = otherTeacher.getMiddleName();
         this.lastName = otherTeacher.getLastName();
@@ -44,6 +51,14 @@ public class Teacher {
         this.employmentType = otherTeacher.getEmploymentType();
         this.employmentStart = otherTeacher.getEmploymentStart();
         this.employmentEnd = otherTeacher.getEmploymentEnd();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -108,13 +123,5 @@ public class Teacher {
 
     public void setEmploymentEnd(LocalDate employmentEnd) {
         this.employmentEnd = employmentEnd;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

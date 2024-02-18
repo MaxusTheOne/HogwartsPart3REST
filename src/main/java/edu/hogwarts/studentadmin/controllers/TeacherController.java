@@ -27,6 +27,7 @@ public class TeacherController {
     public List<Teacher> getAllTeachers() {
         List<Teacher> teachers = teacherRepository.findAll();
 
+
         return teachers;
     }
 
@@ -34,4 +35,5 @@ public class TeacherController {
     public Teacher createTeacher(@RequestBody Teacher teacher) {
         return teacherRepository.save(teacher);
     }
+
 }
