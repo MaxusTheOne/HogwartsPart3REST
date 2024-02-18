@@ -36,4 +36,29 @@ public class TeacherController {
         return teacherRepository.save(teacher);
     }
 
+    @PutMapping("/teachers/{id}")
+    public ResponseEntity<Teacher> updateTeacher(@PathVariable int id, @RequestBody Teacher teacher) {
+        Optional<Teacher> original = teacherRepository.findById(id);
+
+        if (original.isPresent() && teacher != null) {
+
+            Teacher updatedTeacher = teacherRepository.save(teacher);
+            return ResponseEntity.ok().body(updatedTeacher);
+        } else {
+
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/teachers/{id}")
+    public ResponseEntity<Teacher> deleteTeacher(@PathVariable int id) {
+        Optional<Teacher> teacherToDelete = teacherRepository.findById(id);
+
+        if (teacherToDelete.isPresent()) {
+            teacherRepository.delete(teacherToDelete.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

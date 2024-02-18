@@ -13,6 +13,8 @@ public class Teacher {
     private String middleName;
     private String lastName;
     private LocalDate dateOfBirth;
+    @ManyToOne
+    private House house;
     private boolean headOfHouse;
     @Enumerated(EnumType.STRING)
     private EmploymentType employmentType;

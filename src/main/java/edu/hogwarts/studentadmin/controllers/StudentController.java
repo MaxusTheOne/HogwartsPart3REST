@@ -1,6 +1,7 @@
 package edu.hogwarts.studentadmin.controllers;
 
 import edu.hogwarts.studentadmin.models.Student;
+import edu.hogwarts.studentadmin.models.Teacher;
 import edu.hogwarts.studentadmin.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,18 +45,13 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student student) {
         Optional<Student> original = studentRepository.findById(id);
 
-        if (original.isPresent()) {
-            Student originalStudent = original.get();
-            originalStudent.copyFrom(student);
+        if (original.isPresent() && student != null) {
 
-            Student updatedStudent = studentRepository.save(originalStudent);
+            Student updatedStudent = studentRepository.save(student);
             return ResponseEntity.ok().body(updatedStudent);
         } else {
-            Student newStudent = new Student();
-            newStudent.copyFrom(student);
 
-            Student savedStudent = studentRepository.save(newStudent);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+            return ResponseEntity.notFound().build();
         }
     }
 
