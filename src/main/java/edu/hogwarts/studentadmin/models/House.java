@@ -1,9 +1,10 @@
 package edu.hogwarts.studentadmin.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -11,6 +12,12 @@ import java.util.List;
 public class House {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnoreProperties
+    private String lid;
+
+    // this is the id, ignore above
+
     private String name;
     private String founder;
 
@@ -20,10 +27,8 @@ public class House {
     public House(String name, String founder, List<String> colors) {
         this.name = name;
         this.founder = founder;
-        this.colors = colors;
+        this.colors = (colors != null) ? colors : Collections.emptyList();
     }
-
-
 
     public House() {
     }

@@ -1,6 +1,9 @@
 package edu.hogwarts.studentadmin.models;
 
 import jakarta.persistence.*;
+import edu.hogwarts.studentadmin.models.EmploymentType;
+import edu.hogwarts.studentadmin.models.House;
+
 
 import java.time.LocalDate;
 
@@ -13,9 +16,11 @@ public class Teacher {
     private String middleName;
     private String lastName;
     private LocalDate dateOfBirth;
+
     @ManyToOne
     private House house;
     private boolean headOfHouse;
+
     @Enumerated(EnumType.STRING)
     private EmploymentType employmentType;
     private LocalDate employmentStart;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import edu.hogwarts.studentadmin.models.Course;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class CourseController {
@@ -26,18 +27,18 @@ public class CourseController {
     }
 
     @GetMapping("/courses/{id}")
-    public Course getCourse(int id) {
+    public Course getCourse(@PathVariable int id) {
         return courseRepository.findById(id).orElse(null);
     }
 
     @GetMapping("/courses/{id}/students")
     public List<Student> getStudents(@PathVariable int id) {
-        return courseRepository.findById(id).orElse(null).getStudents();
+        return Objects.requireNonNull(courseRepository.findById(id).orElse(null)).getStudents();
     }
 
     @GetMapping("/courses/{id}/teacher")
     public Teacher getTeacher(@PathVariable int id) {
-        return courseRepository.findById(id).orElse(null).getTeacher();
+        return Objects.requireNonNull(courseRepository.findById(id).orElse(null)).getTeacher();
     }
 
     @PostMapping("/courses")
