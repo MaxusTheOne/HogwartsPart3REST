@@ -70,6 +70,10 @@ public class Student {
         return house.getName();
     }
 
+    public House getHouseObject() {
+        return house;
+    }
+
     public void setHouse(House house) {
         this.house = house;
     }

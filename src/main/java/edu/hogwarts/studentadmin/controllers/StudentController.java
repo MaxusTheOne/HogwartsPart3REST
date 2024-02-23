@@ -47,6 +47,26 @@ public class StudentController {
         }
     }
 
+    @PatchMapping("/students/{id}")
+    public ResponseEntity<Student> patchStudent(@PathVariable int id, @RequestBody Student student) {
+        Optional<Student> original = studentRepository.findById(id);
+        if (original.isPresent() && student != null) {
+            if (student.getFirstName() != null) {
+                original.get().setFirstName(student.getFirstName());
+            }
+            if (student.getLastName() != null) {
+                original.get().setLastName(student.getLastName());
+            }
+            if (student.getHouse() != null) {
+                original.get().setHouse(student.getHouseObject());
+            }
+            Student updatedStudent = studentRepository.save(original.get());
+            return ResponseEntity.ok().body(updatedStudent);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/students/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable int id) {
         Optional<Student> studentToDelete = studentRepository.findById(id);
