@@ -39,27 +39,4 @@ public class StudentService {
 
 
 
-
-
-
-
-
-
-
-
-
-    public StudentDTO toDTO(Student entity) {
-        StudentDTO dto = new StudentDTO();
-        dto.setId(entity.getId());
-        dto.setFirstName(entity.getFirstName());
-        dto.setMiddleName(entity.getMiddleName());
-        dto.setLastName(entity.getLastName());
-        dto.setDateOfBirth(entity.getDateOfBirth());
-        dto.setPrefect(entity.isPrefect());
-        dto.setEnrollmentYear(entity.getEnrollmentYear());
-        dto.setGraduationYear(entity.getGraduationYear());
-        dto.setGraduated(entity.isGraduated());
-        dto.setHouse(entity.getHouse().getName());
-        return dto;
-    }
 }

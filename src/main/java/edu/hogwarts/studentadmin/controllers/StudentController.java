@@ -1,7 +1,7 @@
 package edu.hogwarts.studentadmin.controllers;
 
 import edu.hogwarts.studentadmin.models.Student;
-import edu.hogwarts.studentadmin.services.StudentService;
+import edu.hogwarts.studentadmin.repositories.StudentRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,36 +11,35 @@ import java.util.Optional;
 @RestController
 public class StudentController {
 
-    private final StudentService studentService;
+    private final StudentRepository studentRepository;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("/students")
     public List<Student> getAllStudents() {
-
-        return studentService.findAll();
+        return studentRepository.findAll();
     }
 
     @GetMapping("/students/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable int id) {
-        Optional<Student> student = studentService.findById(id);
+        Optional<Student> student = studentRepository.findById(id);
 
         return ResponseEntity.of(student);
     }
 
     @PostMapping("/students")
     public Student createStudent(@RequestBody Student student) {
-        return studentService.save(student);
+        return studentRepository.save(student);
     }
 
     @PutMapping("/students/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student student) {
-        Optional<Student> original = studentService.findById(id);
+        Optional<Student> original = studentRepository.findById(id);
         if (original.isPresent() && student != null) {
 
-            Student updatedStudent = studentService.save(student);
+            Student updatedStudent = studentRepository.save(student);
             return ResponseEntity.ok().body(updatedStudent);
         } else {
 
@@ -50,7 +49,8 @@ public class StudentController {
 
     @DeleteMapping("/students/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable int id) {
-        return ResponseEntity.of(studentService.deleteById(id));
+        Optional<Student> studentToDelete = studentRepository.findById(id);
+        return ResponseEntity.of(studentToDelete);
     }
 
 

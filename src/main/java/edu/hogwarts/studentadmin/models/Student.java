@@ -1,65 +1,73 @@
 package edu.hogwarts.studentadmin.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnoreProperties
     private int id;
+
     private String firstName;
     private String middleName;
     private String lastName;
-    private LocalDate dateOfBirth;
-    @ManyToOne
-    private House house;
-    private boolean prefect;
-    private int enrollmentYear;
-    private int graduationYear;
-    private boolean graduated;
 
-    public Student(int id, String firstName, String middleName, String lastName, LocalDate dateOfBirth, boolean prefect,
-                   int enrollmentYear, int graduationYear, boolean graduated) {
-        this.id = id;
+
+    @ManyToOne
+    @JoinColumn(name = "house")
+    private House house;
+    private int schoolYear;
+    private Integer graduationYear;
+
+
+
+    public Student(String firstName, String middleName, String lastName, House house, int schoolYear, Integer graduationYear) {
+        this.id = 0;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.prefect = prefect;
-        this.enrollmentYear = enrollmentYear;
+        this.house = house;
+        this.schoolYear = schoolYear;
         this.graduationYear = graduationYear;
-        this.graduated = graduated;
+
+
+    }
+
+    public Student(String fullName, House house, int schoolYear, Integer graduationYear) {
+        String[] names = fullName.split(" ");
+        this.id = 0;
+        this.firstName = names[0];
+        this.middleName = names.length > 2 ? names[1] : "";
+        this.lastName = names[names.length - 1];
+        this.house = house;
+        this.schoolYear = schoolYear;
+        this.graduationYear = graduationYear;
+
     }
 
     public Student() {
     }
 
-    public Student(Student otherStudent) {
-        this.firstName = otherStudent.getFirstName();
-        this.middleName = otherStudent.getMiddleName();
-        this.lastName = otherStudent.getLastName();
-        this.dateOfBirth = otherStudent.getDateOfBirth();
-        this.prefect = otherStudent.isPrefect();
-        this.enrollmentYear = otherStudent.getEnrollmentYear();
-        this.graduationYear = otherStudent.getGraduationYear();
-        this.graduated = otherStudent.isGraduated();
+    public Integer getGraduationYear() {
+        return graduationYear;
     }
 
-    public void copyFrom(Student otherStudent) {
-        this.setFirstName(otherStudent.getFirstName());
-        this.setMiddleName(otherStudent.getMiddleName());
-        this.setLastName(otherStudent.getLastName());
-        this.setDateOfBirth(otherStudent.getDateOfBirth());
-        this.setPrefect(otherStudent.isPrefect());
-        this.setEnrollmentYear(otherStudent.getEnrollmentYear());
-        this.setGraduationYear(otherStudent.getGraduationYear());
-        this.setGraduated(otherStudent.isGraduated());
+    public void setGraduationYear(Integer graduationYear) {
+        this.graduationYear = graduationYear;
     }
 
-    public House getHouse() {
-        return house;
+    public boolean isGraduated() {
+        return graduationYear != null;
+    }
+
+    public String getHouse() {
+
+        return house.getName();
     }
 
     public void setHouse(House house) {
@@ -90,51 +98,15 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public boolean isPrefect() {
-        return prefect;
-    }
-
-    public void setPrefect(boolean prefect) {
-        this.prefect = prefect;
-    }
-
-    public int getEnrollmentYear() {
-        return enrollmentYear;
-    }
-
-    public void setEnrollmentYear(int enrollmentYear) {
-        this.enrollmentYear = enrollmentYear;
-    }
-
-    public int getGraduationYear() {
-        return graduationYear;
-    }
-
-    public void setGraduationYear(int graduationYear) {
-        this.graduationYear = graduationYear;
-    }
-
-    public boolean isGraduated() {
-        return graduated;
-    }
-
-    public void setGraduated(boolean graduated) {
-        this.graduated = graduated;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSchoolYear() {
+        return schoolYear;
+    }
+
+    public void setSchoolYear(int schoolYear) {
+        this.schoolYear = schoolYear;
     }
 }

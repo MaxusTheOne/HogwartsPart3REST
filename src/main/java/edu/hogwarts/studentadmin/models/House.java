@@ -17,7 +17,6 @@ public class House {
     private int id;
 
     // this is the id, ignore above
-
     private String name;
     private String founder;
 
@@ -38,25 +37,13 @@ public class House {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getFounder() {
         return founder;
     }
-
-    public void setFounder(String founder) {
-        this.founder = founder;
-    }
-
 
     public List<String> getColors() {
         return Arrays.asList(color1, color2);
     }
 
-    public void setColors(List<String> colors) {
-        this.color1 = colors.get(0);
-        this.color2 = colors.get(1);
-    }
+
 }
