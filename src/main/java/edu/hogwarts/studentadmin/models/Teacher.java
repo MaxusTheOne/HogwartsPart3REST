@@ -60,6 +60,14 @@ public class Teacher {
         this.employmentEnd = otherTeacher.getEmploymentEnd();
     }
 
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
     public int getId() {
         return id;
     }

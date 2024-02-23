@@ -14,20 +14,21 @@ public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnoreProperties
-    private String lid;
+    private int id;
 
     // this is the id, ignore above
 
     private String name;
     private String founder;
 
-    @ElementCollection
-    private List<String> colors = Arrays.asList("", "");
+    private String color1;
+    private String color2;
 
     public House(String name, String founder, List<String> colors) {
         this.name = name;
         this.founder = founder;
-        this.colors = (colors != null) ? colors : Collections.emptyList();
+        this.color1 = colors.get(0);
+        this.color2 = colors.get(1);
     }
 
     public House() {
@@ -51,10 +52,11 @@ public class House {
 
 
     public List<String> getColors() {
-        return colors;
+        return Arrays.asList(color1, color2);
     }
 
     public void setColors(List<String> colors) {
-        this.colors = colors;
+        this.color1 = colors.get(0);
+        this.color2 = colors.get(1);
     }
 }

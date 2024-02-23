@@ -58,6 +58,14 @@ public class Student {
         this.setGraduated(otherStudent.isGraduated());
     }
 
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
     public String getFirstName() {
         return firstName;
     }
