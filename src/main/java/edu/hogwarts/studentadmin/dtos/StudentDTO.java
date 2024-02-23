@@ -19,6 +19,14 @@ public class StudentDTO {
 
     private String house;
 
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+
     public int getId() {
         return id;
     }
