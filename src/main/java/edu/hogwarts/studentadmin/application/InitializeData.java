@@ -25,6 +25,7 @@ public class InitializeData implements CommandLineRunner {
         House slytherin = new House("Slytherin", "Salazar Slytherin", Arrays.asList("Green", "Silver"));
 
 
+
         houseRepository.saveAll(List.of(gryffindor, hufflepuff, ravenclaw, slytherin));
     }
 

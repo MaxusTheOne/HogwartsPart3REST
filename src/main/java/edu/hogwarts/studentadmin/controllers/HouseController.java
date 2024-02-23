@@ -2,11 +2,7 @@ package edu.hogwarts.studentadmin.controllers;
 
 import edu.hogwarts.studentadmin.models.House;
 import edu.hogwarts.studentadmin.repositories.HouseRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/houses")
@@ -19,20 +15,21 @@ public class HouseController {
         this.houseRepository = houseRepository;
     }
 
-    @GetMapping
-    public List<House> getAllHouses() {
-        return houseRepository.findAll();
+    @GetMapping("")
+    public List<House> getHouseByName(@RequestParam(required = false) String name) {
+
+        if (name == null) {
+            return houseRepository.findAll();
+        }else {
+            return houseRepository.findByName(name);
+        }
     }
 
     @GetMapping("/{id}")
-    public House getHouse(@PathVariable String id) {
-        return houseRepository.findById(id).orElse(null);
+    public House getHouse(@PathVariable int id) {
+        return houseRepository.findById(String.valueOf(id)).orElse(null);
     }
 
-    @GetMapping("/{name}")
-    public House getHouseByName(@PathVariable String name) {
-        return houseRepository.findByName(name);
-    }
 
 
 }
