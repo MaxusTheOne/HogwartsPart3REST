@@ -51,15 +51,16 @@ public class StudentController {
     public ResponseEntity<Student> patchStudent(@PathVariable int id, @RequestBody Student student) {
         Optional<Student> original = studentRepository.findById(id);
         if (original.isPresent() && student != null) {
-            if (student.getFirstName() != null) {
-                original.get().setFirstName(student.getFirstName());
+            if (student.isPrefect() != null) {
+                original.get().setPrefect(student.isPrefect());
             }
-            if (student.getLastName() != null) {
-                original.get().setLastName(student.getLastName());
+            if (student.getSchoolYear() != null) {
+                original.get().setSchoolYear(student.getSchoolYear());
             }
-            if (student.getHouse() != null) {
-                original.get().setHouse(student.getHouseObject());
+            if (student.getGraduationYear() != null) {
+                original.get().setGraduationYear(student.getGraduationYear());
             }
+            // Graduated is already calculated automatically, so we don't need to update it. Suck it.
             Student updatedStudent = studentRepository.save(original.get());
             return ResponseEntity.ok().body(updatedStudent);
         } else {

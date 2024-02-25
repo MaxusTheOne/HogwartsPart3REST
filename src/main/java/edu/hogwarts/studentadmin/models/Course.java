@@ -25,6 +25,14 @@ public class Course {
         return students;
     }
 
+    public void addStudents(List<Student> students) {
+        if (this.students == null) {
+            return;
+        }
+        this.students.addAll(students);
+        // I'm a fucking genius.
+    }
+
     public int getId() {
         return id;
     }

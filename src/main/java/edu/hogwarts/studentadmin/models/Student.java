@@ -1,10 +1,8 @@
 package edu.hogwarts.studentadmin.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-
-import java.util.Optional;
 
 @Entity
 public class Student {
@@ -16,12 +14,13 @@ public class Student {
     private String firstName;
     private String middleName;
     private String lastName;
+    private Boolean prefect;
 
 
     @ManyToOne
     @JoinColumn(name = "house")
     private House house;
-    private int schoolYear;
+    private Integer schoolYear;
     private Integer graduationYear;
 
 
@@ -34,6 +33,7 @@ public class Student {
         this.house = house;
         this.schoolYear = schoolYear;
         this.graduationYear = graduationYear;
+        this.prefect = false;
 
 
     }
@@ -47,10 +47,19 @@ public class Student {
         this.house = house;
         this.schoolYear = schoolYear;
         this.graduationYear = graduationYear;
+        this.prefect = false;
 
     }
 
     public Student() {
+    }
+
+    public Boolean isPrefect() {
+        return prefect;
+    }
+
+    public void setPrefect(Boolean prefect) {
+        this.prefect = prefect;
     }
 
     public Integer getGraduationYear() {
@@ -70,6 +79,7 @@ public class Student {
         return house.getName();
     }
 
+    @JsonIgnore
     public House getHouseObject() {
         return house;
     }
@@ -106,11 +116,11 @@ public class Student {
         this.id = id;
     }
 
-    public int getSchoolYear() {
+    public Integer getSchoolYear() {
         return schoolYear;
     }
 
-    public void setSchoolYear(int schoolYear) {
+    public void setSchoolYear(Integer schoolYear) {
         this.schoolYear = schoolYear;
     }
 }

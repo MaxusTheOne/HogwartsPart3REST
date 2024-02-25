@@ -1,8 +1,6 @@
 package edu.hogwarts.studentadmin.models;
 
 import jakarta.persistence.*;
-import edu.hogwarts.studentadmin.models.EmploymentType;
-import edu.hogwarts.studentadmin.models.House;
 
 
 import java.time.LocalDate;
@@ -19,22 +17,22 @@ public class Teacher {
 
     @ManyToOne
     private House house;
-    private boolean headOfHouse;
+    private Boolean headOfHouse;
 
     @Enumerated(EnumType.STRING)
-    private EmploymentType employmentType;
+    private EmploymentType employment;
     private LocalDate employmentStart;
     private LocalDate employmentEnd;
 
 
     public Teacher(String firstName, String middleName, String lastName, LocalDate dateOfBirth,
-                   boolean headOfHouse, EmploymentType employmentType, LocalDate employmentStart, LocalDate employmentEnd) {
+                   boolean headOfHouse, EmploymentType employment, LocalDate employmentStart, LocalDate employmentEnd) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.headOfHouse = headOfHouse;
-        this.employmentType = employmentType;
+        this.employment = employment;
         this.employmentStart = employmentStart;
         this.employmentEnd = employmentEnd;
     }
@@ -55,7 +53,7 @@ public class Teacher {
         this.lastName = otherTeacher.getLastName();
         this.dateOfBirth = otherTeacher.getDateOfBirth();
         this.headOfHouse = otherTeacher.isHeadOfHouse();
-        this.employmentType = otherTeacher.getEmploymentType();
+        this.employment = otherTeacher.getEmployment();
         this.employmentStart = otherTeacher.getEmploymentStart();
         this.employmentEnd = otherTeacher.getEmploymentEnd();
     }
@@ -108,20 +106,20 @@ public class Teacher {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public boolean isHeadOfHouse() {
+    public Boolean isHeadOfHouse() {
         return headOfHouse;
     }
 
-    public void setHeadOfHouse(boolean headOfHouse) {
+    public void setHeadOfHouse(Boolean headOfHouse) {
         this.headOfHouse = headOfHouse;
     }
 
-    public EmploymentType getEmploymentType() {
-        return employmentType;
+    public EmploymentType getEmployment() {
+        return employment;
     }
 
-    public void setEmploymentType(EmploymentType employmentType) {
-        this.employmentType = employmentType;
+    public void setEmployment(EmploymentType employmentType) {
+        this.employment = employmentType;
     }
 
     public LocalDate getEmploymentStart() {

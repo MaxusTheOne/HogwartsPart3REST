@@ -5,6 +5,7 @@ import edu.hogwarts.studentadmin.models.House;
 import edu.hogwarts.studentadmin.models.Student;
 import edu.hogwarts.studentadmin.models.Teacher;
 import edu.hogwarts.studentadmin.models.EmploymentType;
+import edu.hogwarts.studentadmin.repositories.CourseRepository;
 import edu.hogwarts.studentadmin.repositories.HouseRepository;
 import edu.hogwarts.studentadmin.repositories.StudentRepository;
 
@@ -24,12 +25,14 @@ public class InitializeData implements CommandLineRunner {
     private final HouseRepository houseRepository;
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
+    private final CourseRepository courseRepository;
 
 
-    public InitializeData(HouseRepository houseRepository, StudentRepository studentRepository,  TeacherRepository teacherRepository) {
+    public InitializeData(HouseRepository houseRepository, StudentRepository studentRepository, TeacherRepository teacherRepository, CourseRepository courseRepository) {
         this.houseRepository = houseRepository;
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.courseRepository = courseRepository;
     }
 
     public void initData() {
@@ -62,7 +65,7 @@ public class InitializeData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        InitializeData data = new InitializeData(houseRepository, studentRepository, teacherRepository);
+        InitializeData data = new InitializeData(houseRepository, studentRepository, teacherRepository, courseRepository);
         data.initData();
 
     }

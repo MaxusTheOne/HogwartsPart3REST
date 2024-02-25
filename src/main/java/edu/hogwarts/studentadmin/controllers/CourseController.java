@@ -46,6 +46,21 @@ public class CourseController {
         return courseRepository.save(course);
     }
 
+    @PostMapping("/courses/{id}")
+    public ResponseEntity<Course> addStudentList(@PathVariable int id, @RequestBody List<Student> students) {
+        Course course = courseRepository.findById(id).orElse(null);
+        if (course != null) {
+            course.addStudents(students);
+            Course updatedCourse = courseRepository.save(course);
+            return ResponseEntity.ok().body(updatedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+
+
     @PutMapping("/courses/{id}")
     public ResponseEntity<Course> updateCourse(@PathVariable int id, @RequestBody Course course) {
         Optional<Course> original = courseRepository.findById(id);
@@ -75,19 +90,17 @@ public class CourseController {
         }
     }
 
-    @PutMapping("/courses/{id}/students")
-    public ResponseEntity<Course> updateStudents(@PathVariable int id, @RequestBody List<Student> students) {
+    @PatchMapping("/courses/{id}")
+    public ResponseEntity<Course> patchCourse(@PathVariable int id, @RequestBody Course course) {
         Optional<Course> original = courseRepository.findById(id);
-
-        if (original.isPresent() && students != null) {
-            Course course = original.get();
-            course.setStudents(students);
-            Course updatedCourse = courseRepository.save(course);
+        if (original.isPresent() && course != null) {
+            if (course.getTeacher() != null) {
+                original.get().setTeacher(course.getTeacher());
+            }
+            Course updatedCourse = courseRepository.save(original.get());
             return ResponseEntity.ok().body(updatedCourse);
-        } else {
-
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/courses/{id}")
