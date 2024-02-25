@@ -7,6 +7,7 @@ import edu.hogwarts.studentadmin.repositories.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,16 @@ public class StudentService {
         return studentToDelete;
     }
 
+    public boolean  sameYearAsCourse(List<Student> students, int courseId) {
+
+        int courseYear = Objects.requireNonNull(studentRepository.findById(courseId).orElse(null)).getSchoolYear();
+        for (Student student : students) {
+            if (student.getSchoolYear() != courseYear) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 
